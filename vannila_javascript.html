@@ -1,4 +1,4 @@
-<doctype />
+<!DOCTYPE html>
 <html>
     <head  >
         <meta charset="UTF-8">
@@ -6,28 +6,37 @@
     </head>
     <body style="background-color: khaki">
         <div id="div1" style="color:green">
-            <p><b>My first javascript example</b></p>
+            <p><b>My first javascript list</b></p>
             <ol id="list">
                 <li class="item" onclick="listItemClick(this)" onmouseover="listItemHover(this)" onmouseout="listItemLeave(this)">Coffee</li>
                 <li class="item" onclick="listItemClick(this)" onmouseover="listItemHover(this)" onmouseout="listItemLeave(this)">Tea</li>
                 <li class="item" onclick="listItemClick(this)" onmouseover="listItemHover(this)" onmouseout="listItemLeave(this)"> Milk</li>
             </ol>
         </div>
+        <br/>
+        <br/>
+        <div id="div2" style="color:blue">
+            <fieldset>
+                <legend>Personal information:</legend>
+                First name:<br>
+                <input id="txtFirstName" type="text" name="firstname"><br>
+                Last name:<br>
+                <input id="txtLastName" type="text" name="lastname"><br><br>
+                <button id="orderBtn" type="button">Order</button>
+              </fieldset>
+        </div>
 
-        <div id="div2" style="color:limegreen">Second div</div>
         <script>
-            window.addEventListener('load', onPageLoaded);
+            window.addEventListener("load", onPageLoaded);
             function onPageLoaded(){
-                console.info('page was loaded');
+                 var orderBtn=document.getElementById("orderBtn");
+                 orderBtn.addEventListener("click", orderBtnClicked);
+            }
 
-                var list=document.getElementById('list');
-              
-                // list.addEventListener('mouseover', function(e){
-                //     listItemHover(list);
-                // });
-                // list.addEventListener('mouseleave', function(e){
-                //     listItemLeave(list);
-                // });
+            function orderBtnClicked(){
+                  var firstName=document.getElementById("txtFirstName");
+                  var lastName=document.getElementById("txtlastName");
+                 window.alert(txtFirstName.value + " " + txtLastName.value + " succesfully logged in");
             }
 
             function listItemClick(element)
