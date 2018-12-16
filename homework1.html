@@ -6,9 +6,9 @@
     </head>
     <body style="background-color: khaki">
         <div id="div1" style="color:green">
-            <p><b>My first javascript list</b></p>
+            <p><b>Please select from items below:</b></p>
             <ol id="list">
-                <li class="item" onclick="listItemClick(this)" onmouseover="listItemHover(this)" onmouseout="listItemLeave(this)">Coffee</li>
+                <li class="item" onclick="listItemClick(this)"  onmouseover="listItemHover(this)" onmouseout="listItemLeave(this)">Coffee</li>
                 <li class="item" onclick="listItemClick(this)" onmouseover="listItemHover(this)" onmouseout="listItemLeave(this)">Tea</li>
                 <li class="item" onclick="listItemClick(this)" onmouseover="listItemHover(this)" onmouseout="listItemLeave(this)"> Milk</li>
             </ol>
@@ -17,31 +17,21 @@
         <br/>
         <div id="div2" style="color:blue">
             <fieldset>
-                <legend>Personal information:</legend>
+                <legend>Please complete your personal information:</legend>
                 First name:<br>
                 <input id="txtFirstName" type="text" name="firstname"><br>
                 Last name:<br>
                 <input id="txtLastName" type="text" name="lastname"><br><br>
-                <button id="orderBtn" type="button">Login</button>
+                <button id="orderBtn" type="button">Order</button>
               </fieldset>
         </div>
 
         <script>
-            window.addEventListener("load", onPageLoaded);
-            function onPageLoaded(){
-                 var orderBtn=document.getElementById("orderBtn");
-                 orderBtn.addEventListener("click", orderBtnClicked);
-            }
-
-            function orderBtnClicked(){
-                  var firstName=document.getElementById("txtFirstName");
-                  var lastName=document.getElementById("txtlastName");
-                 window.alert(txtFirstName.value + " " + txtLastName.value + " succesfully logged in");
-            }
-
+            var selectedOption;
             function listItemClick(element)
             {
-                window.alert(element.textContent);
+                selectedOption = element.textContent;
+                element.style.backgroundColor = "blue";
             }
 
             function listItemHover(element)
@@ -53,6 +43,18 @@
             {
                 element.style.fontSize ='16';
                 element.style.backgroundColor = "khaki";
+            }
+
+            function orderBtnClicked(){
+                  var firstName=document.getElementById("txtFirstName");
+                  var lastName=document.getElementById("txtlastName");
+                 window.alert(txtFirstName.value + " " + txtLastName.value + " ordered "+ selectedOption);
+            }
+
+            window.addEventListener("load", onPageLoaded);
+            function onPageLoaded(){
+                 var orderBtn=document.getElementById("orderBtn");
+                 orderBtn.addEventListener("click", orderBtnClicked);
             }
         </script>
     </body>
