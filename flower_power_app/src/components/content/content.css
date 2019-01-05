@@ -1,0 +1,8 @@
+.content {
+    display: grid;
+    margin: auto;
+  }
+.content-card {
+    border: 15px, solid,grey;
+    padding:10px;
+  }

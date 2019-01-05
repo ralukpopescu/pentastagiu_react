@@ -38,6 +38,7 @@ class Drinks extends React.Component{
 
 class AccountInformation extends React.Component{
     handleBtnClick (){
+        
         window.alert("Button clicked ");
     }
 
