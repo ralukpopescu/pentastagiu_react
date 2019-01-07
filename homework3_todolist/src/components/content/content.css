@@ -1,0 +1,31 @@
+.content{
+    background: rgb(236, 229, 229);
+    align-content: left;
+    align-items: left;
+    vertical-align: center;
+}
+
+.content input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #a6a8ad;
+    width: 165px;
+    align-content: left;
+  }
+  
+.content button {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px;
+    margin-right: 0px;
+    background-color: rgb(105, 122, 148);
+    color: #FFF;
+    border: 2px solid rgb(43, 89, 158);
+    align-content: left;
+}
+
+.content button:hover {
+    background-color: #003399;
+    border: 2px solid #003399;
+    cursor: pointer;
+}

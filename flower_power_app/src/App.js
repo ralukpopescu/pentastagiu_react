@@ -100,7 +100,11 @@ class App extends Component {
     return (
       <div className="App">
        <Header/>
-       <Content name={this.state.name} allData = {this.state.allData} handleClick={this.handleClick} title = {this.state.title} handleChangeTitle={this.handleChangeTitle}/>
+       <Content name={this.state.name} 
+                allData = {this.state.allData} 
+                handleClick={this.handleClick} 
+                title = {this.state.title} 
+                handleChangeTitle={this.handleChangeTitle}/>
       </div>
     );
   }

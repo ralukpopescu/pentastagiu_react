@@ -5,6 +5,7 @@ import Input from '../input/input';
 import PropTypes from 'prop-types';
 
 class Content extends Component{
+  
     render() {
         console.log('Card', this.props);
 
