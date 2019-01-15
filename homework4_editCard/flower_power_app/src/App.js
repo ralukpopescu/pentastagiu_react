@@ -52,9 +52,11 @@ class App extends Component {
       <div className="App">
       <Header />
       {this.state.setEditMode ? 
-           <EditCard {...this.state.dataById}
-                     selectedFlower = {this.state.dataById}/> : 
-           <Content name={this.state.name} 
+          //  <EditCard {...this.state.dataById}
+          //           itemId = {this.state.dataById}/> : 
+          <EditCard id = {this.state.dataById.id}/> :
+
+          <Content name={this.state.name} 
                   handleClick={this.handleClick} 
                   allData={this.state.allData} 
                   title={this.state.title}
