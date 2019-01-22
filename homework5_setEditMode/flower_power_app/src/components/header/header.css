@@ -1,0 +1,33 @@
+  .App-header {
+    background-color: #282c34;
+    min-height: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.App-header + .content {
+  padding-top: 50px;
+}
+
+.App-header .fa-shopping-cart {
+  margin-right: 20px;
+  opacity: .8;
+}
+
+.App-header .fa-shopping-cart:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.logo-text {
+  flex: auto;
+  margin-left: 20px;
+}
