@@ -4,7 +4,7 @@ import Content from './components/content/content';
 import EditCard from './components/editCard/editCard';
 import { connect } from "react-redux";
 import './App.css';
-import { startEdit } from './Redux/Actions/ui';
+import { startEdit, stopEdit } from './Redux/Actions/ui';
 
 class App extends Component {
   constructor(props){
@@ -15,7 +15,7 @@ class App extends Component {
       name: 'Bogdan',
       allData: [],
       title: 'Super Bogdan',
-      setEditMode: false,
+      //setEditMode: false,
       dataById: {}
     }
   }
@@ -28,7 +28,7 @@ class App extends Component {
     });
   }
   componentDidUpdate(){
-    console.log("EditMode="+ this.state.setEditMode)
+    //console.log("EditMode="+ this.state.setEditMode)
   }
   handleClick(id) {
     this.setState((prevState) => {
@@ -42,17 +42,19 @@ class App extends Component {
       return {
         dataById: data,
         allData: newData,
-        setEditMode: true,
+        //setEditMode: true,
       }
     }
     );
-    console.log("HandleClick on flower with id="+id)
+    this.props._startEdit(id);
+    console.log("Start edit, handleClick on flower with id="+id)
+    console.log("isInEditMode="+this.props.ui.isInEditMode)
   }
 
   onSave(){
-    //this.props._startSave();
-    this.props._startEdit();
-    console.log("Handle on save")
+    console.log("Stop edit")
+    this.props._stopEdit();
+    console.log("isInEditMode="+this.props.ui.isInEditMode)
   }
   
   render() {
@@ -60,7 +62,7 @@ class App extends Component {
     return (
       <div className="App">
       <Header />
-      {this.state.setEditMode ? 
+      {this.props.ui.isInEditMode ? 
           <EditCard id = {this.state.dataById.id}
                      onSave = {this.onSave}/> :
 
@@ -76,13 +78,14 @@ class App extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-
+    ui:state.ui
 });
   
 const mapDispatchToProps = (dispatch) => ({
     //_startSave : ()=> dispatch(showLoader),
     //_stopSave : ()=> dispatch(hideLoader),
-    _startEdit : () => dispatch(startEdit),
+    _startEdit : (id) => dispatch(startEdit(id)),
+    _stopEdit : () => dispatch(stopEdit)
 });
 
 export default connect(

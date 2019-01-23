@@ -11,8 +11,9 @@ export const hideLoader = () => ({
     type: HIDE_LOADER
 });
 
-export const startEdit = () => ({
-    type: START_EDIT
+export const startEdit = (id) => ({
+    type: START_EDIT,
+    payload: id,
 });
 
 export const stopEdit = () => ({
