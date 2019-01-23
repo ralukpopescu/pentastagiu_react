@@ -4,7 +4,7 @@ import Content from './components/content/content';
 import EditCard from './components/editCard/editCard';
 import { connect } from "react-redux";
 import './App.css';
-import { startEdit, stopEdit } from './Redux/Actions/ui';
+import { startEdit,stopEdit } from './Redux/Actions/ui';
 
 class App extends Component {
   constructor(props){
@@ -48,30 +48,29 @@ class App extends Component {
     );
     this.props._startEdit(id);
     console.log("Start edit, handleClick on flower with id="+id)
-    console.log("isInEditMode="+this.props.ui.isInEditMode)
   }
 
   onSave(){
     console.log("Stop edit")
     this.props._stopEdit();
-    console.log("isInEditMode="+this.props.ui.isInEditMode)
   }
   
   render() {
-    console.log('Render in app.js')
+    console.log('Render in app.js isInEditMode='+ this.props.ui.isInEditMode)
+
     return (
       <div className="App">
       <Header />
       {this.props.ui.isInEditMode ? 
           <EditCard id = {this.state.dataById.id}
                      onSave = {this.onSave}/> :
-
-          <Content name={this.state.name} 
-                  handleClick={this.handleClick} 
-                  allData={this.state.allData} 
-                  title={this.state.title}
-                  handleChangeTitle={()=> {}}
-          />
+          this.props.ui.showSpinner ? 
+            <div className="loading-spinner"><div></div><div></div><div></div><div></div></div> :
+            <Content name={this.state.name} 
+                    handleClick={this.handleClick} 
+                    allData={this.state.allData} 
+                    title={this.state.title}
+                    handleChangeTitle={()=> {}}/>
       }
       </div>
     );
@@ -85,7 +84,7 @@ const mapDispatchToProps = (dispatch) => ({
     //_startSave : ()=> dispatch(showLoader),
     //_stopSave : ()=> dispatch(hideLoader),
     _startEdit : (id) => dispatch(startEdit(id)),
-    _stopEdit : () => dispatch(stopEdit)
+    _stopEdit : () => dispatch(stopEdit())
 });
 
 export default connect(
