@@ -4,15 +4,14 @@ import Content from './components/content/content';
 import EditCard from './components/editCard/editCard';
 import './App.css';
 import { connect } from "react-redux";
-import { getProducts, setSaveProduct, setNameProduct, deleteProduct } from './Redux/Actions/products';
-import { startEditProduct, finishEditProduct } from './Redux/Actions/ui';
+import { getProducts, deleteProduct } from './Redux/Actions/products';
+import { startEditProduct } from './Redux/Actions/ui';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.onSave = this.onSave.bind(this);
   }
 
   componentDidMount(){
@@ -29,10 +28,6 @@ class App extends Component {
     this.props._deleteProduct(id);
   }
  
-  onSave() {
-    this.props._setSaveProduct();
-  }
-  
   render() {
     console.log(this.props)
     return (
@@ -40,7 +35,7 @@ class App extends Component {
       <Header />
       {
         this.props.ui.productEdit ? 
-          <EditCard onSave={this.onSave}/> : 
+          <EditCard product={this.props.product}/> : 
           this.props.ui.showSpinner ? 
             <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
           : 
@@ -65,12 +60,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     _getAllProducts: () => dispatch(getProducts()),
     _startEditProduct: (id) => dispatch(startEditProduct(id)),
-    _finishEditProduct: () => dispatch(finishEditProduct()),
-    _setSaveProduct: () => dispatch(setSaveProduct()),
-    _setNameProduct: (name) => dispatch(setNameProduct(name)),
     _deleteProduct: (id) => dispatch(deleteProduct(id))
   });
-
 
 export default connect(
   mapStateToProps,

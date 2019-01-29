@@ -11,6 +11,7 @@ import {
   resetProduct,
   FETCH_PRODUCT_DELETE_SUCCESS,
   FETCH_PRODUCT_DELETE_ERROR
+  
 } from "../Actions/products";
 import { apiRequest } from "../Actions/api";
 import {showLoader, hideLoader, PRODUCT_EDIT_STARTED, finishEditProduct} from "../Actions/ui";
@@ -66,23 +67,23 @@ export const processProductCollection = ({dispatch}) => next => action => {
   }
 }
 
-export const saveProductById= ({ dispatch, getState }) => next => action => {
+export const saveProductById = ({ dispatch, getState }) => next => action => {
   next(action);
-
   if (action.type === SET_SAVE_EDIT_PRODUCT) {
-    const state = getState();
     dispatch(showLoader());
+    const state = getState();
     dispatch(
       apiRequest(
-        "/products",
+        `/products`,
         "PUT",
-       {product: state.products.product},
+        { body: state.products.product },
         FETCH_PRODUCT_SAVE_EDIT_SUCCESS,
         FETCH_PRODUCTS_ERROR
       )
     );
   }
 };
+
 export const processSaveEditProductCollection = ({dispatch}) => next => action => {
   next(action);
 

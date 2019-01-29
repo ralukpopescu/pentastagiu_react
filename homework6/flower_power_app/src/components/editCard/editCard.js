@@ -1,41 +1,30 @@
 import React, { PureComponent } from "react";
 import "./editCard.css";
+import { setNameProduct, setSaveProduct } from '../../Redux/Actions/products';
 import { connect } from "react-redux";
 
 class EditCard extends PureComponent {
 
   constructor(props){
     super(props);
-    this.state = {name: '', description: ''};
     this.onNameChanged = this.onNameChanged.bind(this);
+    this.onSave = this.onSave.bind(this);
     this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
   }
 
   onNameChanged(event){
-    console.log("OnNameChanged "+ event.target.value);
+    const name = event.target.value;
+    this.props._setNameProduct(name);
+    console.log("OnNameChanged name ="+ name);
+  }
 
-    // this.setState(prevState => {
-    //   prevState.name = event.target.value;
-    //   return prevState;
-    // })
+  onSave() {
+    console.log("OnSave name="+ this.props.product.name);
+    this.props._setSaveProduct();
   }
 
   onDescriptionChanged(event){
     console.log("OnDescriptionChanged "+ event.target.value);
-
-    // this.setState(prevState => {
-    //   prevState.description = event.target.value;
-    //   return prevState;
-    // })
-  }
-
-  componentDidMount(){
-    console.log("componentDidMount product= "+ this.props.product);
-    this.setState({
-      name: this.props.product.name,
-      description : this.props.product.description
-    });
-    console.log("componentDidMount name="+ this.state.name+"+description ="+this.state.description);
   }
 
   render() {
@@ -50,7 +39,7 @@ class EditCard extends PureComponent {
           </td>
           <td>
             <input
-              value={this.state.name}
+              value={this.props.product.name}
               name="name"
               type="text"
               onChange={this.onNameChanged}
@@ -61,7 +50,7 @@ class EditCard extends PureComponent {
           <td> <label>Description</label></td>
           <td>
             <input
-            value={this.state.description}
+            value={this.props.product.description}
             name="description"
             type="text"
             onChange={this.onDescriptionChanged}/>
@@ -69,19 +58,19 @@ class EditCard extends PureComponent {
         </tr>
         </tbody>
       </table>
-        <button onClick={this.props.onSave}>Save</button>
+        <button onClick={this.onSave}>Save</button>
       </div>
     );
   }
 }
  
 const mapStateToProps = (state) => ({
-  product: state.products.product,
+  product: state.products.product
 });
   
 const mapDispatchToProps = (dispatch) => ({
-    // _setSaveProduct: () => dispatch(setSaveProduct()),
-    // _setNameProduct: (name) => dispatch(setNameProduct(name)),
+     _setNameProduct: (name) => dispatch(setNameProduct(name)),
+     _setSaveProduct: () => dispatch(setSaveProduct()),
   });
 
 export default connect(
