@@ -117,7 +117,7 @@ router.delete("/:id", prepareData, async (request, response) => {
 
     await writeFileAsync(filePath, JSON.stringify(request.products));
 
-    return response.send({ message: `Deletet prooduct ${idToDelete}` });
+    return response.send({ message: `Delete product ${idToDelete}` });
   } catch (error) {
     return response.status(500).send(error.message);
   }

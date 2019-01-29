@@ -10,6 +10,8 @@ export const SAVE_EDIT_PRODUCT = '[product] Save edit product';
 export const SET_SAVE_EDIT_PRODUCT = '[product] Set save edit product';
 export const RESET_PRODUCT = '[product] Reset product';
 export const SET_NAME_PRODUCT = '[product] Set name product';
+export const FETCH_PRODUCT_DELETE_SUCCESS ='[product] Delete product'
+export const FETCH_PRODUCT_DELETE_ERROR ='[product] Delete product encountered an error'
 
 export const getProducts = () => ({
     type: GET_PRODUCTS

@@ -9,6 +9,8 @@ import {
   SET_SAVE_EDIT_PRODUCT,
   FETCH_PRODUCT_SAVE_EDIT_SUCCESS,
   resetProduct,
+  FETCH_PRODUCT_DELETE_SUCCESS,
+  FETCH_PRODUCT_DELETE_ERROR
 } from "../Actions/products";
 import { apiRequest } from "../Actions/api";
 import {showLoader, hideLoader, PRODUCT_EDIT_STARTED, finishEditProduct} from "../Actions/ui";
@@ -98,16 +100,26 @@ export const deleteProduct = ({ dispatch }) => next => action => {
     console.log("Middleware delete product id= "+action.payload)
     dispatch(
       apiRequest(
-        `/:${action.payload}`,
+        `/products/${action.payload}`,
         "DELETE",
         null,
-        FETCH_PRODUCTS_SUCCESS,
-        FETCH_PRODUCTS_ERROR
+        FETCH_PRODUCT_DELETE_SUCCESS,
+        FETCH_PRODUCT_DELETE_ERROR
       )
     );
     //dispatch(showLoader());
   }
 };
+
+export const processProductDelete = ({dispatch}) => next => action => {
+  next(action);
+
+  if(action.type === FETCH_PRODUCT_DELETE_SUCCESS) {
+    console.log("Middleware FETCH_PRODUCT_DELETE_SUCCESS")
+    //dispatch(getProducts());
+    dispatch(hideLoader());
+  }
+}
 
 export const productsMdl = [
   getProductsFlow,
@@ -116,5 +128,6 @@ export const productsMdl = [
   processProductCollection,
   saveProductById,
   processSaveEditProductCollection,
-  deleteProduct
+  deleteProduct,
+  processProductDelete
 ];

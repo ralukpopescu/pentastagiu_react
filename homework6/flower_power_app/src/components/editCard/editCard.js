@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import "./editCard.css";
+import { connect } from "react-redux";
 
 class EditCard extends PureComponent {
 
@@ -17,8 +18,6 @@ class EditCard extends PureComponent {
     //   prevState.name = event.target.value;
     //   return prevState;
     // })
-
-    //this.props._setNameProduct(name);
   }
 
   onDescriptionChanged(event){
@@ -30,16 +29,17 @@ class EditCard extends PureComponent {
     // })
   }
 
-  componentDidUpdate(){
-    console.log("ComponentDidUpdate productId= "+ this.props.product.id);
+  componentDidMount(){
+    console.log("componentDidMount product= "+ this.props.product);
     this.setState({
       name: this.props.product.name,
       description : this.props.product.description
     });
-    console.log("ComponentDidUpdate name="+ this.state.name+"+description ="+this.state.description);
+    console.log("componentDidMount name="+ this.state.name+"+description ="+this.state.description);
   }
 
-   render() {
+  render() {
+    console.log("Edit card render product= "+ this.props.product);
     return (
       <div className="content-card modal">
       <table>
@@ -75,7 +75,18 @@ class EditCard extends PureComponent {
   }
 }
  
-EditCard.propTypes = {
-};
-export default EditCard;
+const mapStateToProps = (state) => ({
+  product: state.products.product,
+});
+  
+const mapDispatchToProps = (dispatch) => ({
+    // _setSaveProduct: () => dispatch(setSaveProduct()),
+    // _setNameProduct: (name) => dispatch(setNameProduct(name)),
+  });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditCard);
+
 

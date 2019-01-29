@@ -40,7 +40,7 @@ class App extends Component {
       <Header />
       {
         this.props.ui.productEdit ? 
-          <EditCard onSave={this.onSave} product={this.props.product}/> : 
+          <EditCard onSave={this.onSave}/> : 
           this.props.ui.showSpinner ? 
             <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
           : 
