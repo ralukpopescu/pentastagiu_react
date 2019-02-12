@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+   // this.addToCartClick = this.addToCartClick.bind(this);
   }
 
   componentDidMount(){
@@ -34,7 +35,7 @@ class App extends Component {
       <div className="App">
       <Header />
       {
-        this.props.ui.productEdit ? 
+          this.props.ui.productEdit ? 
           <EditCard product={this.props.product}/> : 
           this.props.ui.showSpinner ? 
             <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
@@ -42,6 +43,7 @@ class App extends Component {
           <Content 
             handleClick={this.handleClick} 
             handleDelete = {this.handleDelete}
+            //addToCartClick = {this.addToCartClick}
             allData={this.props.products}
             product={this.props.product} 
           />
