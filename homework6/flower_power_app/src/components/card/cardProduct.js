@@ -29,7 +29,7 @@ class CardProduct extends React.PureComponent {
         return (
             <div className="content-card">
                 <Card >
-                <CardHeader title={props.description}
+                <CardHeader title={props.name}
                             subheader={props.description}/>
                     <img className="card-product-image" src={props.photoUrl} alt={props.name}/>
                     {/* <CardMedia  className={props.classes.media} 
@@ -39,13 +39,13 @@ class CardProduct extends React.PureComponent {
                         
                     </CardContent>
                     <CardActions>
-                        <Button size="small" color="primary" onClick={() =>props.addToCartClick(id)}>
+                        <Button size="small" color="primary">
                             Add to cart
                         </Button>
                         <Button size="small" color="primary" onClick={() =>props.handleClick(id)}>
                             Edit
                         </Button>
-                        <Button size="small" color="primary" onClick={() =>props.deleteProduct(id)}>
+                        <Button size="small" color="primary" onClick={() =>props.handleDelete(id)}>
                             Delete
                         </Button>
                     </CardActions>
@@ -57,7 +57,7 @@ class CardProduct extends React.PureComponent {
 CardProduct.propTypes={
     name: PropTypes.string,
     handleClick: PropTypes.func,
-    deleteProduct: PropTypes.func,
+    handleDelete: PropTypes.func,
     addToCartClick: PropTypes.func
 }
 export default withStyles(styles)(CardProduct);

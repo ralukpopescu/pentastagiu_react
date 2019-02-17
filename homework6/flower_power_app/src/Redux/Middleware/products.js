@@ -9,6 +9,7 @@ import {
   SET_SAVE_EDIT_PRODUCT,
   FETCH_PRODUCT_SAVE_EDIT_SUCCESS,
   resetProduct,
+  SAVE_PRODUCT,
   FETCH_PRODUCT_DELETE_SUCCESS,
   FETCH_PRODUCT_DELETE_ERROR
   
@@ -122,6 +123,23 @@ export const processProductDelete = ({dispatch}) => next => action => {
   }
 }
 
+export const saveProduct= ({ dispatch }) => next => action => {
+  next(action);
+
+  if (action.type === SAVE_PRODUCT) {
+    
+    dispatch(showLoader());
+    dispatch(
+      apiRequest(
+        "/products",
+        "POST",
+        { body: { product: action.payload } },
+        GET_PRODUCTS,
+        FETCH_PRODUCTS_ERROR
+      )
+    );
+  }
+};
 export const productsMdl = [
   getProductsFlow,
   processProductsCollection,
@@ -130,5 +148,6 @@ export const productsMdl = [
   saveProductById,
   processSaveEditProductCollection,
   deleteProduct,
-  processProductDelete
+  processProductDelete,
+  saveProduct
 ];

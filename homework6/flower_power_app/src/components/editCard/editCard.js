@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import "./editCard.css";
-import { setNameProduct, setSaveProduct } from '../../Redux/Actions/products';
+import { setNameProduct, setSaveProduct, setDescriptionProduct } from '../../Redux/Actions/products';
 import { connect } from "react-redux";
 
 class EditCard extends PureComponent {
@@ -18,17 +18,20 @@ class EditCard extends PureComponent {
     console.log("OnNameChanged name ="+ name);
   }
 
+  onDescriptionChanged(event){
+    const description = event.target.value;
+    this.props._setDescriptionProduct(description);
+    console.log("OnDescriptionChanged "+ description);
+  }
+
   onSave() {
     console.log("OnSave name="+ this.props.product.name);
     this.props._setSaveProduct();
   }
-
-  onDescriptionChanged(event){
-    console.log("OnDescriptionChanged "+ event.target.value);
-  }
-
+  
   render() {
     console.log("Edit card render product= "+ this.props.product);
+
     return (
       <div className="content-card modal">
       <table>
@@ -70,6 +73,7 @@ const mapStateToProps = (state) => ({
   
 const mapDispatchToProps = (dispatch) => ({
      _setNameProduct: (name) => dispatch(setNameProduct(name)),
+     _setDescriptionProduct: (description) => dispatch(setDescriptionProduct(description)),
      _setSaveProduct: () => dispatch(setSaveProduct()),
   });
 

@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 import Header from './components/header/header';
 import Content from './components/content/content';
 import EditCard from './components/editCard/editCard';
+import AddCard from './components/addCard/addCard';
 import './App.css';
 import { connect } from "react-redux";
 import { getProducts, deleteProduct } from './Redux/Actions/products';
 import { startEditProduct } from './Redux/Actions/ui';
+import Button from '@material-ui/core/Button';
+import { Route, Switch } from 'react-router-dom';
+
+const NotFound = (props) => (
+  <h2>Page not found</h2>
+);
 
 class App extends Component {
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-   // this.addToCartClick = this.addToCartClick.bind(this);
+    this.addCard=this.addCard.bind(this);
   }
 
   componentDidMount(){
@@ -23,10 +30,15 @@ class App extends Component {
 
   handleClick(id) {
     this.props._startEditProduct(id);
+    this.props.history.push(`/product/${id}`);
   }
 
   handleDelete(id){
     this.props._deleteProduct(id);
+  }
+
+  addCard(){
+    this.props.history.push('/add-product');
   }
  
   render() {
@@ -34,7 +46,25 @@ class App extends Component {
     return (
       <div className="App">
       <Header />
-      {
+      <Switch>
+          <Route path="/add-product" component={AddCard}/>
+          <Route path="/product/:productId" component={() => (
+            <EditCard product={this.props.product}/>
+          )}/>
+          <Route exact path="/" component={() =>(
+            <Content 
+              handleClick={this.handleClick} 
+              handleDelete = {this.handleDelete}
+              allData={this.props.products}
+              product={this.props.product} 
+          />)}
+          />
+          <Route path="*" component={NotFound}/>
+        </Switch>
+        <Button size="small" color="primary" onClick={this.addCard}>
+          Add card
+      </Button>
+      {/* {
           this.props.ui.productEdit ? 
           <EditCard product={this.props.product}/> : 
           this.props.ui.showSpinner ? 
@@ -43,11 +73,10 @@ class App extends Component {
           <Content 
             handleClick={this.handleClick} 
             handleDelete = {this.handleDelete}
-            //addToCartClick = {this.addToCartClick}
             allData={this.props.products}
             product={this.props.product} 
           />
-      }
+      } */}
       </div>
     );
   }
