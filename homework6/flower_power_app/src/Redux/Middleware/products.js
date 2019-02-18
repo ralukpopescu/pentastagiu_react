@@ -10,8 +10,8 @@ import {
   FETCH_PRODUCT_SAVE_EDIT_SUCCESS,
   resetProduct,
   SAVE_PRODUCT,
-  FETCH_PRODUCT_DELETE_SUCCESS,
-  FETCH_PRODUCT_DELETE_ERROR
+  FETCH_PRODUCT_DELETE_ERROR,
+  getProducts
   
 } from "../Actions/products";
 import { apiRequest } from "../Actions/api";
@@ -68,16 +68,17 @@ export const processProductCollection = ({dispatch}) => next => action => {
   }
 }
 
-export const saveProductById = ({ dispatch, getState }) => next => action => {
+export const saveProductById= ({ dispatch, getState }) => next => action => {
   next(action);
+
   if (action.type === SET_SAVE_EDIT_PRODUCT) {
-    dispatch(showLoader());
     const state = getState();
+    dispatch(showLoader());
     dispatch(
       apiRequest(
-        `/products`,
+        "/products",
         "PUT",
-        { body: state.products.product },
+       { body: { product: state.products.product } },
         FETCH_PRODUCT_SAVE_EDIT_SUCCESS,
         FETCH_PRODUCTS_ERROR
       )
@@ -92,6 +93,7 @@ export const processSaveEditProductCollection = ({dispatch}) => next => action =
     dispatch(hideLoader());
     dispatch(finishEditProduct());
     dispatch(resetProduct());
+    dispatch(getProducts());
   }
 }
 
@@ -105,23 +107,12 @@ export const deleteProduct = ({ dispatch }) => next => action => {
         `/products/${action.payload}`,
         "DELETE",
         null,
-        FETCH_PRODUCT_DELETE_SUCCESS,
+        GET_PRODUCTS,
         FETCH_PRODUCT_DELETE_ERROR
       )
     );
-    //dispatch(showLoader());
   }
 };
-
-export const processProductDelete = ({dispatch}) => next => action => {
-  next(action);
-
-  if(action.type === FETCH_PRODUCT_DELETE_SUCCESS) {
-    console.log("Middleware FETCH_PRODUCT_DELETE_SUCCESS")
-    //dispatch(getProducts());
-    dispatch(hideLoader());
-  }
-}
 
 export const saveProduct= ({ dispatch }) => next => action => {
   next(action);
@@ -148,6 +139,5 @@ export const productsMdl = [
   saveProductById,
   processSaveEditProductCollection,
   deleteProduct,
-  processProductDelete,
   saveProduct
 ];

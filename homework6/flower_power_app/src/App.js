@@ -63,20 +63,7 @@ class App extends Component {
         </Switch>
         <Button size="small" color="primary" onClick={this.addCard}>
           Add card
-      </Button>
-      {/* {
-          this.props.ui.productEdit ? 
-          <EditCard product={this.props.product}/> : 
-          this.props.ui.showSpinner ? 
-            <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
-          : 
-          <Content 
-            handleClick={this.handleClick} 
-            handleDelete = {this.handleDelete}
-            allData={this.props.products}
-            product={this.props.product} 
-          />
-      } */}
+        </Button>
       </div>
     );
   }

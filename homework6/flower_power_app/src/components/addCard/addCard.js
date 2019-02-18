@@ -2,6 +2,35 @@ import React, { PureComponent } from "react";
 import "./addCard.css";
 import { saveProduct } from "../../Redux/Actions/products";
 import { connect } from "react-redux";
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  button: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 class AddCard extends PureComponent {
   constructor(props) {
@@ -29,27 +58,40 @@ class AddCard extends PureComponent {
   }  
 
   render() {
+    const { classes } = this.props;
     return (
-      <form >
+      <form noValidate autoComplete="off">
       <div className="content-card modal">
-        <label>Name</label>
-        <input
-          name="name"
-          type="text"
-          onChange={this.onChanged}
-        />
-        <label>Description</label>
-        <input
-          name="description"
-          type="text"
-          onChange={this.onChanged}
-        />
-        <input
-          name="unitPrice"
-          type="text"
-          onChange={this.onChanged}
-        />
-        <button type="submit" onClick={this.onSubmit}>Save</button>
+        <CardHeader title='Add card'/>
+        <CardContent>
+            <TextField
+              id="name"
+              label="Name"
+              className={classes.textField}
+              onChange={this.onChanged}
+              margin="normal"
+            />
+            <TextField
+              id="description"
+              label="Description"
+              className={classes.textField}
+              onChange={this.onChanged}
+              margin="normal"
+            />
+            <TextField
+              id="price"
+              label="Price"
+              defaultValue="0"
+              className={classes.textField}
+              onChange={this.onChanged}
+              margin="normal"
+            />
+          </CardContent>
+          <CardActions>
+            <Button type="submit" size="small" color="primary" onClick={this.onSubmit}>
+              Save
+            </Button>
+          </CardActions>
       </div>
       </form>
     );
@@ -65,6 +107,8 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps, 
   mapDispatchToProps
-)(AddCard);
+)(withStyles(styles)(AddCard));
+
+
 
 
