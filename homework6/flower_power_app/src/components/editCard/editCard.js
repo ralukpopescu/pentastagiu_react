@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import "./editCard.css";
-import { setNameProduct, setSaveProduct, setDescriptionProduct,resetProduct } from '../../Redux/Actions/products';
+import {setSaveProduct,resetProduct } from '../../Redux/Actions/products';
 import { connect } from "react-redux";
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -35,40 +35,41 @@ const styles = theme => ({
 class EditCard extends PureComponent {
   constructor(props){
     super(props);
-    this.onNameChanged = this.onNameChanged.bind(this);
-    this.onSave = this.onSave.bind(this);
+    this.state = {
+      id : this.props.product.id,
+      name: this.props.product.name,
+      description: this.props.product.description,
+      unitPrice: this.props.product.unitPrice,
+      photoUrl: this.props.product.photoUrl,
+    }
+    this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
-    this.onDescriptionChanged = this.onDescriptionChanged.bind(this);
+    this.onChanged = this.onChanged.bind(this);
   }
 
-  onNameChanged(event){
-    const name = event.target.value;
-    this.props._setNameProduct(name);
-    console.log("OnNameChanged name ="+ name);
-  }
-
-  onDescriptionChanged(event){
-    const description = event.target.value;
-    this.props._setDescriptionProduct(description);
-    console.log("OnDescriptionChanged "+ description);
-  }
-
-  onSave() {
-    console.log("OnSave name="+ this.props.product.name);
-    this.props._setSaveProduct();
+  onSubmit(event) {
+    event.preventDefault();
+    console.log("OnSubmit product name ="+ this.state.name+ " description="+ this.state.description +" "+  this.state.unitPrice);
+    //this.props._setNameProduct(this.state.name);
+    //this.props._setDescriptionProduct(this.state.description);
+    this.props._updateProduct(this.state);
     //this.props.history.push('/');
   }
-  
-  onCancel(e){
+
+  onCancel(){
     this.props._resetProduct();
-    //this.props.history.push('/');
+    this.props.history.push('/');
   }
 
+  onChanged = (event) => {
+    this.setState({...this.state,
+        [event.target.id]: event.target.value
+    });
+  }  
+ 
   render() {
-    console.log("Edit card render product= "+ this.props.product);
     const { classes } = this.props;
     return (
-      
       <div className="content-card modal">
         <CardHeader title='Edit card'/>
         <CardContent>
@@ -76,21 +77,30 @@ class EditCard extends PureComponent {
               id="name"
               label="Name"
               className={classes.textField}
-              value={this.props.product.name}
-              onChange={this.onNameChanged}
+              value={this.state.name}
+              onChange={this.onChanged}
               margin="normal"
             />
             <TextField
               id="description"
               label="Description"
               className={classes.textField}
-              value={this.props.product.description}
-              onChange={this.onDescriptionChanged}
+              value={this.state.description}
+              onChange={this.onChanged}
+              margin="normal"
+            />
+            <TextField
+              id="unitPrice"
+              label="Unit price"
+              type="number"
+              className={classes.textField}
+              value={this.state.unitPrice}
+              onChange={this.onChanged}
               margin="normal"
             />
           </CardContent>
           <CardActions>
-            <Button size="small" color="primary" onClick={this.onSave}>
+            <Button size="small" color="primary" onClick={this.onSubmit}>
               Save
             </Button>
             <Button type="submit" size="small" color="primary" onClick={this.onCancel}>
@@ -106,11 +116,11 @@ const mapStateToProps = (state) => ({
   product: state.products.product
 });
   
-const mapDispatchToProps = (dispatch) => ({
-     _setNameProduct: (name) => dispatch(setNameProduct(name)),
-     _setDescriptionProduct: (description) => dispatch(setDescriptionProduct(description)),
-     _setSaveProduct: () => dispatch(setSaveProduct()),
-     _resetProduct: () => dispatch(resetProduct()) 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+ // _setNameProduct: (name) => dispatch(setNameProduct(name)),
+  //_setDescriptionProduct: (description) => dispatch(setDescriptionProduct(description)),
+  _updateProduct: (product) => dispatch(setSaveProduct(product)),
+  _resetProduct: () => dispatch(resetProduct()) 
   });
 
 export default connect(

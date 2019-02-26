@@ -86,17 +86,17 @@ router.post("/", prepareData, async (request, response) => {
  */
 router.put("/", prepareData, async (request, response) => {
   try {
-    const product = request.body;
-    if (!product) {
+    const params = request.body.product;
+    if (!params) {
       return response.send({ error: "Missing product param" });
     }
-    const modifiedProducts = request.products.map(p => {
-      return p.id === +product.id ? product : p;
-    });
 
+    const modifiedProducts = request.products.map(p => {
+      return p.id === +params.id ? params : p;
+    });
     await writeFileAsync(filePath, JSON.stringify(modifiedProducts));
 
-    return response.send(product);
+    return response.send(params);
   } catch (error) {
     return response.status(500).send(error.message);
   }

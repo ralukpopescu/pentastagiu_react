@@ -87,9 +87,10 @@ class AddCard extends PureComponent {
               margin="normal"
             />
             <TextField
-              id="price"
-              label="Price"
+              id="unitPrice"
+              label="Unit price"
               defaultValue="0"
+              type="number"
               className={classes.textField}
               onChange={this.onChanged}
               margin="normal"

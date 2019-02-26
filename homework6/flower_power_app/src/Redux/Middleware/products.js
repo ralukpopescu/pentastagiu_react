@@ -68,19 +68,22 @@ export const processProductCollection = ({dispatch}) => next => action => {
   }
 }
 
-export const saveProductById= ({ dispatch, getState }) => next => action => {
+export const saveProductById = ({ dispatch, getState }) => next => action => {
   next(action);
 
   if (action.type === SET_SAVE_EDIT_PRODUCT) {
-    const state = getState();
+    //const state = getState();
     dispatch(showLoader());
     dispatch(
       apiRequest(
         "/products",
-        "PUT",
-       { body: { product: state.products.product } },
+        "PUT", {
+          body: {
+            product: action.payload
+          }
+        },
         FETCH_PRODUCT_SAVE_EDIT_SUCCESS,
-        FETCH_PRODUCTS_ERROR
+        FETCH_PRODUCTS_ERROR,
       )
     );
   }
@@ -108,7 +111,8 @@ export const deleteProduct = ({ dispatch }) => next => action => {
         "DELETE",
         null,
         GET_PRODUCTS,
-        FETCH_PRODUCT_DELETE_ERROR
+        FETCH_PRODUCT_DELETE_ERROR,
+        action.history
       )
     );
   }
@@ -130,6 +134,7 @@ export const saveProduct= ({ dispatch }) => next => action => {
     );
   }
 };
+
 export const productsMdl = [
   getProductsFlow,
   processProductsCollection,
