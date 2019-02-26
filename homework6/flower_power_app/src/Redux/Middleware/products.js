@@ -118,7 +118,6 @@ export const saveProduct= ({ dispatch }) => next => action => {
   next(action);
 
   if (action.type === SAVE_PRODUCT) {
-    
     dispatch(showLoader());
     dispatch(
       apiRequest(

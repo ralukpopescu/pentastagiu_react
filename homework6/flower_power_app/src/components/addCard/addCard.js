@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import "./addCard.css";
-import { saveProduct } from "../../Redux/Actions/products";
+import { saveProduct, resetProduct } from "../../Redux/Actions/products";
 import { connect } from "react-redux";
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -41,6 +41,7 @@ class AddCard extends PureComponent {
       unitPrice: ''
     };
     this.onSubmit = this.onSubmit.bind(this);
+    this.onCancel = this.onCancel.bind(this);
     this.onChanged = this.onChanged.bind(this);
   }
   
@@ -49,13 +50,20 @@ class AddCard extends PureComponent {
     const newProduct = this.state;
     newProduct.photoUrl = '';
     this.props._saveProduct(newProduct);
+    this.props.history.push('/');
+  }
+
+  onCancel(e){
+    this.props._resetProduct();
+    this.props.history.push('/');
   }
 
   onChanged(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }  
+    console.log(this.state)
+      this.setState({...this.state,
+        [e.target.id]: e.target.value
+      });
+    }
 
   render() {
     const { classes } = this.props;
@@ -91,6 +99,9 @@ class AddCard extends PureComponent {
             <Button type="submit" size="small" color="primary" onClick={this.onSubmit}>
               Save
             </Button>
+            <Button type="submit" size="small" color="primary" onClick={this.onCancel}>
+              Cancel
+            </Button>
           </CardActions>
       </div>
       </form>
@@ -101,7 +112,8 @@ class AddCard extends PureComponent {
 const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => ({
-  _saveProduct: (product) => dispatch(saveProduct(product)) 
+  _saveProduct: (product) => dispatch(saveProduct(product)),
+  _resetProduct: () => dispatch(resetProduct()) 
 })
 
 export default connect(
