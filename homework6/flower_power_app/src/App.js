@@ -49,14 +49,15 @@ class App extends Component {
       <Switch>
           <Route path="/add-product" component={AddCard}/>
           <Route path="/product/:productId" component={() => (
-            <EditCard product={this.props.product}/>
+            <EditCard product={this.props.product} 
+                      history = {this.props.history}/>
           )}/>
           <Route exact path="/" component={() =>(
             <Content 
               handleClick={this.handleClick} 
               handleDelete = {this.handleDelete}
               allData={this.props.products}
-              product={this.props.product} 
+              product={this.props.product}
           />)}
           />
           <Route path="*" component={NotFound}/>

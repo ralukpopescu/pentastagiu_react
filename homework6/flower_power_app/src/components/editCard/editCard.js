@@ -40,7 +40,7 @@ class EditCard extends PureComponent {
       name: this.props.product.name,
       description: this.props.product.description,
       unitPrice: this.props.product.unitPrice,
-      photoUrl: this.props.product.photoUrl,
+      photoUrl : this.props.product.photoUrl
     }
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -49,11 +49,8 @@ class EditCard extends PureComponent {
 
   onSubmit(event) {
     event.preventDefault();
-    console.log("OnSubmit product name ="+ this.state.name+ " description="+ this.state.description +" "+  this.state.unitPrice);
-    //this.props._setNameProduct(this.state.name);
-    //this.props._setDescriptionProduct(this.state.description);
     this.props._updateProduct(this.state);
-    //this.props.history.push('/');
+    this.props.history.push('/');
   }
 
   onCancel(){
@@ -117,8 +114,6 @@ const mapStateToProps = (state) => ({
 });
   
 const mapDispatchToProps = (dispatch, ownProps) => ({
- // _setNameProduct: (name) => dispatch(setNameProduct(name)),
-  //_setDescriptionProduct: (description) => dispatch(setDescriptionProduct(description)),
   _updateProduct: (product) => dispatch(setSaveProduct(product)),
   _resetProduct: () => dispatch(resetProduct()) 
   });
